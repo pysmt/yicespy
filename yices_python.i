@@ -1,5 +1,5 @@
 /* -*- swig -*- */
-/* SWIG interface file to create the Python API for PYices3 */
+/* SWIG interface file to create the Python API for Yices */
 /* author: Andrea Micheli <micheli.andrea@gmail.com> */
 
 %include "typemaps.i"
@@ -8,7 +8,7 @@
 
 /* EXTRA_SWIG_CODE_TAG */
 
-%module pyices
+%module yices
 %{
 #include "yices.h"
 /* EXTRA_C_INCLUDE_TAG */
