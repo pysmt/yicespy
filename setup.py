@@ -1,17 +1,43 @@
-import os
+import os, sys
+import optparse
+
 from setuptools import setup
 from distutils.extension import Extension
 from datetime import datetime
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-YICES_VERSION="2.4.1"
-YICES_DIR= os.path.join(BASE_DIR, "yices-%s" % YICES_VERSION)
+
+p = optparse.OptionParser('%prog [options] [-- [setup_options]]')
+p.add_option('--yices-dir', help='directory of the yices SMT solver', default=None)
+
+try:
+    idx = sys.argv.index('--')
+    optargs = sys.argv[1:idx]
+    argv = sys.argv[idx+1:]
+except ValueError:
+    optargs, argv = sys.argv[1:], []
+
+sys.argv = [sys.argv[0]] + argv
+
+opts, args = p.parse_args(optargs)
+
+if args:
+    sys.argv = [sys.argv[0]] + args + sys.argv[1:]
+
+YICES_DIR = None
+YICES_VERSION = "2.4.1"
+
+if opts.yices_dir is not None:
+    YICES_DIR = opts.yices_dir
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    YICES_DIR = os.path.join(BASE_DIR, "yices-%s" % YICES_VERSION)
+
 
 YICESPY_MINOR_VERSION='%s' % datetime.utcnow().strftime("%y%m%d")
 # Major number is Yices Version, minor number creation date of the bindings
 YICESPY_VERSION='%s.%s' % (YICES_VERSION, YICESPY_MINOR_VERSION)
 
-yices_ext = Extension('_yices', #['yices_python_wrap.c'],
+yices_ext = Extension('_yicespy',
                       ['yices_python.i'],
                       swig_opts=['-I%s'%os.path.join(YICES_DIR, "include")],
                       include_dirs=[os.path.join(YICES_DIR, "include")],
@@ -42,7 +68,7 @@ setup(name='yicespy',
       description=short_description,
       long_description=long_description,
       ext_modules=[yices_ext],
-      py_modules=['yices'],
+      py_modules=['yicespy'],
       classifiers = [
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
