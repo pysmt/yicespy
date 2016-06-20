@@ -7,9 +7,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 YICES_VERSION="2.4.1"
 YICES_DIR= os.path.join(BASE_DIR, "yices-%s" % YICES_VERSION)
 
-PYICES_MINOR_VERSION='%s' % datetime.utcnow().strftime("%y%m%d")
+YICESPY_MINOR_VERSION='%s' % datetime.utcnow().strftime("%y%m%d")
 # Major number is Yices Version, minor number creation date of the bindings
-PYICES_VERSION='%s.%s' % (YICES_VERSION, PYICES_MINOR_VERSION)
+YICESPY_VERSION='%s.%s' % (YICES_VERSION, YICESPY_MINOR_VERSION)
 
 yices_ext = Extension('_yices', #['yices_python_wrap.c'],
                       ['yices_python.i'],
@@ -30,14 +30,14 @@ Yices SMT-Solver Wrapper
 
 Provides a basic wrapping around the Yices 2 SMT Solver.
 
-Yices is developed by SRI, for more information: http://XXXXX.
+Yices is developed by SRI, for more information: http://yices.csl.sri.com/.
 """
 
-setup(name='pyices',
-      version=PYICES_VERSION,
+setup(name='yicespy',
+      version=YICESPY_VERSION,
       author='PySMT Team',
       author_email='info@pysmt.org',
-      url='https://github.com/pysmt/pyices3/',
+      url='https://github.com/pysmt/yicespy/',
       license='BSD',
       description=short_description,
       long_description=long_description,

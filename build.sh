@@ -25,7 +25,7 @@ cd ..
 # cp build/lib.linux*/yices.py .
 
 # echo "LD_LIBRAY_PATH=`pwd`/yices-${version}/lib/"
-# "lib/python{$python_version}/site-packages/pyices"
+# "lib/python{$python_version}/site-packages/yicespy"
 # PKG (This is done by travis-CI. It is left here for reference)
 # $PYTHON ./setup.py egg_info --tag-date --tag-build=.dev bdist_wheel
 # mv yices.py yices3.py

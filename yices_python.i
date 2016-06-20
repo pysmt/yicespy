@@ -101,7 +101,7 @@
 }
 
 
-%module yices
+%module yicespy
 %{
 #include "yices.h"
 /* EXTRA_C_INCLUDE_TAG */
