@@ -152,7 +152,9 @@ int32_t yices_get_rational64_value(model_t *mdl, term_t t, int64_t *OUTPUT, uint
 %typemap(out) int32_t yices_get_mpq_value(model_t *mdl, term_t t, mpq_t out) {
     char *s;
     if ($result != 0) {
-      PyErr_SetString(PyExc_TypeError, yices_error_string());
+      char *err = yices_error_string();
+      PyErr_SetString(PyExc_TypeError, err);
+      yices_free_string(err);
       return NULL;
     }
     s = mpq_get_str(NULL, 10, arg3);
@@ -176,12 +178,14 @@ int32_t yices_get_rational64_value(model_t *mdl, term_t t, int64_t *OUTPUT, uint
 %typemap(out) int32_t yices_get_mpz_value(model_t *mdl, term_t t, mpz_t val) {
     char *s;
     if ($result != 0) {
+      char *err = yices_error_string();
       PyErr_SetString(PyExc_TypeError, yices_error_string());
+      yices_free_string(err);
       return NULL;
     }
     s = mpz_get_str(NULL, 10, arg3);
     if (s) {
-      $result = PyInt_FromString(s, NULL, 0);
+      $result = PyLong_FromString(s, NULL, 0);
       free(s);
     }
     else {
