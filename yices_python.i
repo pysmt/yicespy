@@ -143,21 +143,77 @@ int32_t yices_get_rational64_value(model_t *mdl, term_t t, int64_t *OUTPUT, uint
 }
 %rename(yices_get_bv_value) yices_get_bv_value_width;
 
+%typemap(in) mpq_t val {
+    mpq_init($1);
+}
+%typemap(freearg) mpq_t val {
+    mpq_clear($1);
+}
+%typemap(out) int32_t yices_get_mpq_value(model_t *mdl, term_t t, mpq_t out) {
+    char *s;
+    if ($result != 0) {
+      PyErr_SetString(PyExc_TypeError, yices_error_string());
+      return NULL;
+    }
+    s = mpq_get_str(NULL, 10, arg3);
+    if (s) {
+      $result = Py_BuildValue("is", $1, s);
+      free(s);
+    }
+    else {
+      PyErr_SetString(PyExc_TypeError, "Unable to print rational number!");
+      return NULL;
+    }
+}
+%rename(_yices_get_rational_value) yices_get_mpq_value;
+
+%typemap(in) mpz_t val {
+    mpz_init_set_si($1, 0);
+}
+%typemap(freearg) mpz_t val {
+    mpz_clear($1);
+}
+%typemap(out) int32_t yices_get_mpz_value(model_t *mdl, term_t t, mpz_t val) {
+    char *s;
+    if ($result != 0) {
+      PyErr_SetString(PyExc_TypeError, yices_error_string());
+      return NULL;
+    }
+    s = mpz_get_str(NULL, 10, arg3);
+    if (s) {
+      $result = PyInt_FromString(s, NULL, 0);
+      free(s);
+    }
+    else {
+      PyErr_SetString(PyExc_TypeError, "Unable to print integer number!");
+      return NULL;
+    }
+}
+%rename(_yices_get_integer_value) yices_get_mpz_value;
+
+
+%ignore yices_mpz;
+%ignore yices_mpq;
+%ignore yices_bvconst_mpz;
+%ignore yices_rational_const_value;
+%ignore yices_sum_component;
+
 %module yicespy
 %{
+#include <gmp.h>
 #include "yices_types.h"
 #include "yices.h"
 /* EXTRA_C_INCLUDE_TAG */
 %}
 
-%include "stdint.i"
+%import "stdint.i"
+#define __GMP_H__
 %include "yices_types.h"
 %include "yices.h"
 
 /* EXTRA_SWIG_INCLUDE_TAG */
 
 %{
-
 /* EXTRA_C_STATIC_CODE_TAG */
 
 %}
@@ -179,6 +235,13 @@ __YICES_DLLSPEC__ extern int32_t yices_get_bv_value_width(model_t *mdl,
 
 
 %pythoncode %{
+
+def yices_get_rational_value(model, term):
+  return _yices_get_rational_value(model, term, 0)
+
+def yices_get_integer_value(model, term):
+  return _yices_get_integer_value(model, term, 0)
+
 
 ## EXTRA_PYTHON_CODE_TAG
 
