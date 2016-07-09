@@ -1,6 +1,7 @@
 /* -*- swig -*- */
 /* SWIG interface file to create the Python API for Yices */
 /* author: Marco Gario <marco.gario@gmail.com> */
+/* author: Andrea Micheli <micheli.andrea@gmail.com> */
 
 %include "typemaps.i"
 
