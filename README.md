@@ -7,7 +7,7 @@ yicespy is a low-level wrapper providing all methods needed by pySMT (http://pys
 some functionality that might not have been wrapped. If you are interested, feel free to open a Pull Request.
 In general, yicespy is a low-level wrapper, and we recommend using it through its integration in pySMT.
 
-We support the latest version of Yices 2.5.1 -- released August 2016)
+We support the latest version of Yices 2.5.2 -- released February 2017)
 
 # Installation
 
