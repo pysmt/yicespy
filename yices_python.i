@@ -196,6 +196,18 @@ int32_t yices_get_rational64_value(model_t *mdl, term_t t, int64_t *OUTPUT, uint
 }
 %rename(_yices_get_integer_value) yices_get_mpz_value;
 
+// int32_t *val, type_t *tau
+%typemap(argout) (int32_T *val, type_t *tau) {
+  size_t i;
+  lst = PyList_New($1);
+  for (i=0; i<$1; i++) {
+    PyObject* o;
+    o = PyInt_FromLong($2[i]);
+    PyList_SetItem(lst, i, o);
+  }
+  $result = SWIG_AppendOutput($result, lst);
+}
+
 
 %ignore yices_mpz;
 %ignore yices_mpq;
