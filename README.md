@@ -3,10 +3,11 @@
 A **yicespy** is a Python wrapper for the Yices SMT solver (http://yices.csl.sri.com/).
 The wrapper is compatible with both Python 2 and 3, and is generated using SWIG.
 
-yicespy is a low-level wrapper providing all methods needed by pySMT (http://pysmt.org) to work, for this reason there are some functionality that might not have been wrapped. If you are interested, feel free to open a Pull Request.
-In general, yicespy is a low-level wrapper, and we recommend using it through its integration in pySMT. You might also be interested in the [official python interface](https://github.com/SRI-CSL/yices2/tree/master/src/bindings/python) recently release by the Yices Team.
+We support the latest (as of July 2018) version of Yices: 2.6.0 .
 
-We support the latest version of Yices: 2.6.0 (released June 2018)
+yicespy is a low-level wrapper providing all methods needed by pySMT (http://pysmt.org) to work, for this reason there are some functionality that might not have been wrapped. If you are interested, feel free to open a Pull Request.
+yicespy is a low-level wrapper, and we recommend using it through its integration in pySMT. You might also be interested in the [official python interface](https://github.com/SRI-CSL/yices2/tree/master/src/bindings/python) recently released by the Yices Team.
+
 
 # Installation
 
