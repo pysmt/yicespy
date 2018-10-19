@@ -1,8 +1,8 @@
 import os, sys
 import optparse
+import platform
 
-from setuptools import setup
-from distutils.extension import Extension
+from setuptools import setup, Extension
 from datetime import datetime
 
 
@@ -40,15 +40,17 @@ YICESPY_VERSION='%s.%s' % (YICES_VERSION, YICESPY_MINOR_VERSION)
 extra_include = []
 if 'C_INCLUDE_PATH' in os.environ:
     extra_include.append(os.environ['C_INCLUDE_PATH'])
-
+libraries = ['yices']
+if platform.system() == 'Windows':
+    libraries += ['psapi', 'mpir']
 yices_ext = Extension('_yicespy',
                       ['yices_python.i'],
                       swig_opts=['-I%s'%os.path.join(YICES_DIR, "include")],
                       include_dirs=[os.path.join(YICES_DIR, "include")],
                       library_dirs=[os.path.join(YICES_DIR, "lib")],
                       runtime_library_dirs=[os.path.join(YICES_DIR, "lib")],
-                      libraries=['yices'],
-                      language='c',
+                      libraries=libraries,
+                      language='c++',
                     )
 
 short_description="Yices SMT-Solver Wrapper"
