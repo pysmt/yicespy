@@ -241,7 +241,10 @@ int32_t yices_get_rational64_value(model_t *mdl, term_t t, int64_t *OUTPUT, uint
 __YICES_DLLSPEC__ extern int32_t yices_get_bv_value_width(model_t *mdl,
                                                           term_t t,
                                                           uint32_t width,
-                                                          int32_t val[])
+                                                          int32_t val[]);
+
+int32_t yices_get_bv_value_width(model_t *mdl, term_t t, uint32_t width,
+                                 int32_t val[]);
 {
   return yices_get_bv_value(mdl, t, val);
 }
