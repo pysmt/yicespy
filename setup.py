@@ -41,14 +41,16 @@ extra_include = []
 if 'C_INCLUDE_PATH' in os.environ:
     extra_include.append(os.environ['C_INCLUDE_PATH'])
 libraries = ['yices']
+runtime_libraries=[os.path.join(YICES_DIR, "lib")]
 if platform.system() == 'Windows':
     libraries += ['psapi', 'mpir']
+    runtime_libraries = []
 yices_ext = Extension('_yicespy',
                       ['yices_python.i'],
                       swig_opts=['-I%s'%os.path.join(YICES_DIR, "include")],
                       include_dirs=[os.path.join(YICES_DIR, "include")],
                       library_dirs=[os.path.join(YICES_DIR, "lib")],
-                      runtime_library_dirs=[os.path.join(YICES_DIR, "lib")],
+                      runtime_library_dirs=runtime_libraries,
                       libraries=libraries,
                       language='c++',
                     )
