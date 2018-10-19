@@ -244,7 +244,7 @@ __YICES_DLLSPEC__ extern int32_t yices_get_bv_value_width(model_t *mdl,
                                                           int32_t val[]);
 
 int32_t yices_get_bv_value_width(model_t *mdl, term_t t, uint32_t width,
-                                 int32_t val[]);
+                                 int32_t val[])
 {
   return yices_get_bv_value(mdl, t, val);
 }
