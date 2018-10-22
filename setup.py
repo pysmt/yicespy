@@ -43,7 +43,7 @@ if 'C_INCLUDE_PATH' in os.environ:
 libraries = ['yices']
 runtime_libraries=[os.path.join(YICES_DIR, "lib")]
 if platform.system() == 'Windows':
-    libraries += ['psapi', 'mpir']
+    libraries = ['libyices', 'psapi', 'mpir']
     runtime_libraries = []
 yices_ext = Extension('_yicespy',
                       ['yices_python.i'],
