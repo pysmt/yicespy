@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="2.5.2"
+VERSION="2.6.2"
 PACK="x86_64-unknown-linux-gnu-static-gmp"
 ARCHIVE_NAME="yices-${VERSION}-${PACK}.tar.gz"
 
