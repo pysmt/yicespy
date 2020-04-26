@@ -40,7 +40,7 @@ YICESPY_VERSION='%s.%s' % (YICES_VERSION, YICESPY_MINOR_VERSION)
 yices_ext = Extension('_yicespy',
                       ['yices_python.i'],
                       swig_opts=['-I%s'%os.path.join(YICES_DIR, "include")],
-                      include_dirs=[os.path.join(YICES_DIR, "include"),os.environ['C_INCLUDE_PATH']],
+                      include_dirs=[os.path.join(YICES_DIR, "include"), os.getenv("C_INCLUDE_PATH", "")],
                       library_dirs=[os.path.join(YICES_DIR, "lib")],
                       runtime_library_dirs=[os.path.join(YICES_DIR, "lib")],
                       libraries=['yices'],
