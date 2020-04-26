@@ -24,7 +24,7 @@ if args:
     sys.argv = [sys.argv[0]] + args + sys.argv[1:]
 
 YICES_DIR = None
-YICES_VERSION = "2.5.1"
+YICES_VERSION = "2.6.2"
 
 if opts.yices_dir is not None:
     YICES_DIR = opts.yices_dir
